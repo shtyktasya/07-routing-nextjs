@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { useDebouncedCallback } from 'use-debounce';
 
-import { fetchNotes } from '../../lib/api';
-import type { Note } from '../../types/note';
+import { fetchNotes } from '@/lib/api';
+import type { Note } from '@/types/note';
 
 import SearchBox from '@/components/SearchBox/SearchBox';
 import NoteList from '@/components/NoteList/NoteList';
@@ -59,7 +59,7 @@ export default function NotesClient() {
       {!isLoading && notes.length > 0 && <NoteList notes={notes} />}
       {!isLoading && notes.length === 0 && <p>No notes found</p>}
       {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
+        <Modal handleclose={() => setIsModalOpen(false)}>
           <NoteForm
             onSuccess={() => setIsModalOpen(false)}
             onCancel={() => setIsModalOpen(false)}
