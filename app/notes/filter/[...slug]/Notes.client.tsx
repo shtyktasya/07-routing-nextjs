@@ -5,7 +5,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { useDebouncedCallback } from 'use-debounce';
 
 import { fetchNotes } from '@/lib/api';
-import type { Note } from '@/types/note';
+import type { Note, NoteTag } from '@/types/note';
 
 import SearchBox from '@/components/SearchBox/SearchBox';
 import NoteList from '@/components/NoteList/NoteList';
@@ -14,7 +14,7 @@ import Modal from '@/components/Modal/Modal';
 import Pagination from '@/components/Pagination/Pagination';
 
 type NotesClientProps = {
-  category?: string
+  category?: NoteTag
 }
 export default function NotesClient({category}: NotesClientProps) {
   const [page, setPage] = useState<number>(1);

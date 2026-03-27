@@ -20,6 +20,7 @@ export interface FetchNotesParams {
   page: number;
   perPage: number;
   search?: string;
+  tag?: NoteTag; 
 }
 export const fetchNotes = async (
   params: FetchNotesParams,
