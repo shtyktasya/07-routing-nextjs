@@ -13,7 +13,10 @@ import NoteForm from '@/components/NoteForm/NoteForm';
 import Modal from '@/components/Modal/Modal';
 import Pagination from '@/components/Pagination/Pagination';
 
-export default function NotesClient() {
+type NotesClientProps = {
+  category?: string
+}
+export default function NotesClient({category}: NotesClientProps) {
   const [page, setPage] = useState<number>(1);
   const [search, setSearch] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -26,12 +29,13 @@ export default function NotesClient() {
   }, 500);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['notes', page, search],
+    queryKey: ['notes', page, search, category],
     queryFn: () =>
       fetchNotes({
         page,
         perPage,
         search,
+        ...(category ? {tag: category}: {})
       }),
     placeholderData: keepPreviousData,
   });
@@ -59,7 +63,7 @@ export default function NotesClient() {
       {!isLoading && notes.length > 0 && <NoteList notes={notes} />}
       {!isLoading && notes.length === 0 && <p>No notes found</p>}
       {isModalOpen && (
-        <Modal handleclose={() => setIsModalOpen(false)}>
+        <Modal onClose={() => setIsModalOpen(false)}>
           <NoteForm
             onSuccess={() => setIsModalOpen(false)}
             onCancel={() => setIsModalOpen(false)}
